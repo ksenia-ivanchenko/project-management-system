@@ -23,6 +23,7 @@
     "**/*.{css,scss}": "npx stylelint --fix"
   },
   "dependencies": {
+    "antd": "^5.24.7",
     "axios": "^1.8.2",
     "clsx": "^2.1.1",
     "react": "^19.0.0",

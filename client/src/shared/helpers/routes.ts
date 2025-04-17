@@ -11,8 +11,8 @@ interface Routes {
 
 export const routes: Routes = {
   boards: {
-    getLink: () => '/',
-    pathname: 'Доски',
+    getLink: () => '/boards',
+    pathname: 'Проекты',
   },
   board: {
     getLink: () => '/board/:id',
@@ -20,6 +20,6 @@ export const routes: Routes = {
   },
   issues: {
     getLink: () => '/issues',
-    pathname: 'Задачи',
+    pathname: 'Все задачи',
   },
 };
