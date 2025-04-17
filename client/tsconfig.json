@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "declaration": true,
+    "sourceMap": true,
+    "target": "es2017",
+    "jsx": "react-jsx",
+    "moduleResolution": "node",
+    "lib": ["dom", "es2020"],
+    "module": "esnext",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./src",
+    "skipLibCheck": true,
+    "paths": {
+      "@entities/*": ["entities/*"],
+      "@features/*": ["features/*"],
+      "@pages": ["pages/"],
+      "@shared": ["shared/"],
+      "@widgets/*": ["widgets/*"]
+    }
+  },
+  "include": ["src"]
+}
