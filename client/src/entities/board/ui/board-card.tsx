@@ -1,4 +1,4 @@
-import { BoardType } from '../model/board';
+import { BoardType } from '../model/types';
 import { Button, Card } from 'antd';
 import styles from './board-card.module.scss';
 

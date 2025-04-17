@@ -6,9 +6,11 @@ import {
 } from 'react-redux';
 
 import { boardsSlice } from '@features/get-all-boards';
+import { tasksSlice } from '@features/get-all-tasks';
 
 export const rootReducer = combineReducers({
   [boardsSlice.name]: boardsSlice.reducer,
+  [tasksSlice.name]: tasksSlice.reducer,
 });
 
 export const store = configureStore({

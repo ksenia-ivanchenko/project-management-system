@@ -1,38 +1,38 @@
-import { BoardType } from '@entities/board';
-import { getBoards } from './thunks';
+import { TaskType } from '@entities/task';
+import { getTasks } from './thunks';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-type BoardState = {
-  boards: BoardType[];
+type TaskState = {
+  tasks: TaskType[];
   loading: boolean;
   error: string | null;
 };
 
-const initialState: BoardState = {
-  boards: [],
+const initialState: TaskState = {
+  tasks: [],
   loading: false,
   error: null,
 };
 
-export const boardsSlice = createSlice({
-  name: 'boards',
+export const tasksSlice = createSlice({
+  name: 'tasks',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getBoards.pending, (state) => {
+      .addCase(getTasks.pending, (state) => {
         state.error = null;
         state.loading = true;
       })
       .addCase(
-        getBoards.fulfilled,
-        (state, action: PayloadAction<BoardType[]>) => {
+        getTasks.fulfilled,
+        (state, action: PayloadAction<TaskType[]>) => {
           state.loading = false;
-          state.boards = action.payload;
+          state.tasks = action.payload;
           state.error = null;
         }
       )
-      .addCase(getBoards.rejected, (state, action) => {
+      .addCase(getTasks.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'Не удалось загрузить доски';
       });

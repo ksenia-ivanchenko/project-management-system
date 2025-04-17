@@ -1,2 +1,2 @@
-export { type BoardType } from './model/board';
+export { type BoardType } from './model/types';
 export { BoardCard } from './ui/board-card';
