@@ -5,11 +5,12 @@ import {
   useSelector as selectorHook,
 } from 'react-redux';
 
-import { boardsSlice, tasksSlice } from './slices';
+import { boardsSlice, tasksSlice, usersSlice } from './slices';
 
 export const rootReducer = combineReducers({
   [boardsSlice.name]: boardsSlice.reducer,
   [tasksSlice.name]: tasksSlice.reducer,
+  [usersSlice.name]: usersSlice.reducer,
 });
 
 export const store = configureStore({

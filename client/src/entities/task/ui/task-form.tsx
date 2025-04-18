@@ -4,6 +4,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, Input, Select } from 'antd';
 import { BoardType } from '@entities/board';
+import { User } from '@entities/user';
 
 const taskFormSchema = z.object({
   title: z.string().min(1, 'Название обязательно'),
@@ -22,13 +23,15 @@ const taskFormSchema = z.object({
 type TaskFormSchema = z.infer<typeof taskFormSchema>;
 
 type TaskFormProps = {
-  accessibleBoards: BoardType[];
+  boards: BoardType[];
+  users: User[];
   defaultValues?: Partial<TaskFormSchema>;
   onSubmit: (data: TaskFormSchema) => void;
 };
 
 export const TaskForm = ({
-  accessibleBoards,
+  boards,
+  users,
   defaultValues,
   onSubmit,
 }: TaskFormProps) => {
@@ -87,7 +90,7 @@ export const TaskForm = ({
           control={control}
           render={({ field }) => (
             <Select {...field} placeholder="Выберите проект">
-              {accessibleBoards.map((board) => (
+              {boards.map((board) => (
                 <Select.Option key={board.id} value={board.id}>
                   {board.name}
                 </Select.Option>
@@ -147,11 +150,13 @@ export const TaskForm = ({
           control={control}
           render={({ field }) => (
             <Select {...field} placeholder="Выберите исполнителя">
-              <Select.Option value={0}>Исполнитель 0</Select.Option>
-              <Select.Option value={1}>Исполнитель 1</Select.Option>
-              <Select.Option value={2}>Исполнитель 2</Select.Option>
+              {users.map((user) => (
+                <Select.Option key={user.id} value={user.id}>
+                  {user.fullName}
+                </Select.Option>
+              ))}
             </Select>
-          )} // TODO: подтягивать настоящих пользователей
+          )}
         />
       </Form.Item>
     </Form>

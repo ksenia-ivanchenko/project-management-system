@@ -5,18 +5,19 @@ import { CreateTaskRequest, TaskForm } from '@entities/task';
 import { useBoards } from '@features/get-all-boards';
 import { useDispatch } from '@shared';
 import { createNewTask } from '../redux/thunks';
+import { useUsers } from '@features/get-all-users';
 
 export const CreateNewTaskButton = () => {
   const [taskFormOpen, setTaskFormOpen] = useState(false);
   const dispatch = useDispatch();
   const { boards } = useBoards();
+  const { users } = useUsers();
 
   const handleOpen = () => setTaskFormOpen(true);
   const handleClose = () => setTaskFormOpen(false);
 
   const handleSubmit = (data: CreateTaskRequest) => {
     dispatch(createNewTask(data));
-    console.log(data);
     handleClose();
   };
 
@@ -40,7 +41,7 @@ export const CreateNewTaskButton = () => {
         ]}
         title="Создание задачи"
       >
-        <TaskForm onSubmit={handleSubmit} accessibleBoards={boards} />
+        <TaskForm onSubmit={handleSubmit} boards={boards} users={users} />
       </Modal>
     </>
   );
