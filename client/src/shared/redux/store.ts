@@ -5,8 +5,7 @@ import {
   useSelector as selectorHook,
 } from 'react-redux';
 
-import { boardsSlice } from '@features/get-all-boards';
-import { tasksSlice } from '@features/get-all-tasks';
+import { boardsSlice, tasksSlice } from './slices';
 
 export const rootReducer = combineReducers({
   [boardsSlice.name]: boardsSlice.reducer,

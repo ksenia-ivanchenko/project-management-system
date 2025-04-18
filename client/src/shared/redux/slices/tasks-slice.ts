@@ -1,5 +1,6 @@
 import { TaskType } from '@entities/task';
-import { getTasks } from './thunks';
+import { createNewTask } from '@features/create-new-task';
+import { getTasks } from '@features/get-all-tasks';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type TaskState = {
@@ -35,6 +36,20 @@ export const tasksSlice = createSlice({
       .addCase(getTasks.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'Не удалось загрузить доски';
+      });
+    builder
+      .addCase(createNewTask.pending, (state) => {
+        state.error = null;
+        state.loading = true;
+      })
+      .addCase(
+        createNewTask.fulfilled,
+        (state, action: PayloadAction<TaskType>) => {
+          state.tasks.push(action.payload);
+        }
+      )
+      .addCase(createNewTask.rejected, (state, action) => {
+        state.error = action.payload || 'Не удалось создать задачу';
       });
   },
 });

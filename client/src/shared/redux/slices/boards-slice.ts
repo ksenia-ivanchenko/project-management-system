@@ -1,5 +1,5 @@
 import { BoardType } from '@entities/board';
-import { getBoards } from './thunks';
+import { getBoards } from '@features/get-all-boards';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type BoardState = {

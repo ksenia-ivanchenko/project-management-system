@@ -1,2 +1,2 @@
-export { boardsSlice } from './redux/boards-slice';
-export { BoardsList } from './ui/boards-list';
+export { getBoards } from './redux/thunks';
+export { useBoards } from './hooks/use-boards';

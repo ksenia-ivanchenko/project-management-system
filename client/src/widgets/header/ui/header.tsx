@@ -1,7 +1,8 @@
-import { Button, Menu } from 'antd';
+import { Menu } from 'antd';
 import { Link, useLocation } from 'react-router-dom';
 import { routes } from '@shared';
 import styles from './header.module.scss';
+import { CreateNewTaskButton } from '@features/create-new-task';
 
 export const Header = () => {
   const location = useLocation();
@@ -26,9 +27,7 @@ export const Header = () => {
         items={items}
         className={styles.menu}
       />
-      <Button type="primary" className={styles.button}>
-        Создать задачу
-      </Button>
+      <CreateNewTaskButton />
     </div>
   );
 };

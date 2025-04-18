@@ -1,2 +1,2 @@
-export { tasksSlice } from './redux/tasks-slice';
-export { TasksList } from './ui/tasks-list';
+export { getTasks } from './redux/thunks';
+export { useTasks } from './hooks/use-tasks';

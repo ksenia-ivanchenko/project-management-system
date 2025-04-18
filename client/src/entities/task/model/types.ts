@@ -27,3 +27,11 @@ export type TaskType = {
   status: Status;
   title: string;
 };
+
+export type CreateTaskRequest = {
+  assigneeId: number;
+  boardId: number;
+  description: string;
+  priority?: Priority;
+  title: string;
+};

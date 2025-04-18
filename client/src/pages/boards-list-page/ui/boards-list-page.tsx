@@ -1,4 +1,4 @@
-import { BoardsList } from '@features/get-all-boards';
+import { BoardsList } from '@widgets/boards-list';
 
 export const BoardsListPage = () => (
   <>

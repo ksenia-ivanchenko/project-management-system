@@ -1,18 +1,9 @@
-import { useDispatch, useSelector } from '@shared';
 import styles from './tasks-list.module.scss';
-import { useEffect } from 'react';
-import { getTasks } from '../redux/thunks';
 import { TaskCard } from '@entities/task';
+import { useTasks } from '@features/get-all-tasks';
 
 export const TasksList = () => {
-  const { tasks, loading, error } = useSelector((state) => state.tasks);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (!tasks.length) {
-      dispatch(getTasks());
-    }
-  }, []);
+  const { tasks, loading, error } = useTasks();
 
   if (loading) return <div>Загрузка...</div>; // TODO: добавить скелетоны
   if (error) return <div>{error}</div>;

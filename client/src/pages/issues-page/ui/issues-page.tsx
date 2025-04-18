@@ -1,4 +1,4 @@
-import { TasksList } from '@features/get-all-tasks';
+import { TasksList } from '@widgets/tasks-list';
 
 export const IssuesPage = () => (
   <>
