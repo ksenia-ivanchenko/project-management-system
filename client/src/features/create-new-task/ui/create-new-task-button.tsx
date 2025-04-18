@@ -34,14 +34,19 @@ export const CreateNewTaskButton = () => {
             key="submit"
             type="primary"
             htmlType="submit"
-            form="task-form"
+            form="create-form"
           >
             Создать
           </Button>,
         ]}
         title="Создание задачи"
       >
-        <TaskForm onSubmit={handleSubmit} boards={boards} users={users} />
+        <TaskForm
+          onSubmit={handleSubmit}
+          boards={boards}
+          users={users}
+          id="create-form"
+        />
       </Modal>
     </>
   );

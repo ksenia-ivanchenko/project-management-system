@@ -1,4 +1,4 @@
-import { CreateTaskRequest } from '@entities/task';
+import { TaskFormSchema } from '@entities/task';
 import { api } from '@shared';
 
 type CreateTaskSuccessResponse = {
@@ -12,7 +12,7 @@ type ErrorResponse = {
   message: string;
 };
 
-export const createTask = async (data: CreateTaskRequest) => {
+export const createTask = async (data: TaskFormSchema) => {
   try {
     const response = await api.post<CreateTaskSuccessResponse>(
       '/tasks/create',

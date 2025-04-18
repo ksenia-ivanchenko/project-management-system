@@ -20,13 +20,14 @@ const taskFormSchema = z.object({
   assigneeId: z.number({ invalid_type_error: 'Выберите исполнителя' }),
 });
 
-type TaskFormSchema = z.infer<typeof taskFormSchema>;
+export type TaskFormSchema = z.infer<typeof taskFormSchema>;
 
 type TaskFormProps = {
   boards: BoardType[];
   users: User[];
   defaultValues?: Partial<TaskFormSchema>;
   onSubmit: (data: TaskFormSchema) => void;
+  id: string;
 };
 
 export const TaskForm = ({
@@ -34,6 +35,7 @@ export const TaskForm = ({
   users,
   defaultValues,
   onSubmit,
+  id,
 }: TaskFormProps) => {
   const {
     control,
@@ -52,7 +54,7 @@ export const TaskForm = ({
         onSubmit(data);
         reset();
       })}
-      id="task-form"
+      id={id}
     >
       <Form.Item
         label="Название"
