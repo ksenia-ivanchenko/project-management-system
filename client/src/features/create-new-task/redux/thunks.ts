@@ -8,8 +8,8 @@ export const createNewTask = createAsyncThunk<
   { rejectValue: string }
 >('task/create', async (taskData, { rejectWithValue }) => {
   try {
-    const { id } = await createTask(taskData);
-    const task = await fetchTaskById(id);
+    const { data } = await createTask(taskData);
+    const task = await fetchTaskById(data.id);
     return task;
   } catch (error) {
     return rejectWithValue(error.message || 'Не удалось создать задачу');

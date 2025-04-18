@@ -38,14 +38,11 @@ export const tasksSlice = createSlice({
         state.error = action.error.message || 'Не удалось загрузить доски';
       });
     builder
-      .addCase(createNewTask.pending, (state) => {
-        state.error = null;
-        state.loading = true;
-      })
       .addCase(
         createNewTask.fulfilled,
         (state, action: PayloadAction<TaskType>) => {
           state.tasks.push(action.payload);
+          state.error = null;
         }
       )
       .addCase(createNewTask.rejected, (state, action) => {

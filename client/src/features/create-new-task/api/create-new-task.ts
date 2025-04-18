@@ -2,7 +2,9 @@ import { CreateTaskRequest } from '@entities/task';
 import { api } from '@shared';
 
 type CreateTaskSuccessResponse = {
-  id: number;
+  data: {
+    id: number;
+  };
 };
 
 type ErrorResponse = {

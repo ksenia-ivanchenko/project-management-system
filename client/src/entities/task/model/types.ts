@@ -1,13 +1,13 @@
-enum Priority {
-  'Low',
-  'Medium',
-  'High',
+export enum Priority {
+  LOW = 'Low',
+  MEDIUM = 'Medium',
+  HIGH = 'High',
 }
 
-enum Status {
-  'Backlog',
-  'InProgress',
-  'Done',
+export enum Status {
+  BACKLOG = 'Backlog',
+  IN_PROGRESS = 'InProgress',
+  DONE = 'Done',
 }
 
 type AssigneeUserForTask = {
