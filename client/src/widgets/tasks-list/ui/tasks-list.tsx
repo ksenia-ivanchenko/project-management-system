@@ -1,12 +1,15 @@
 import styles from './tasks-list.module.scss';
 import { TaskCard, TaskType } from '@entities/task';
-import { CreateNewTaskButton } from '@features/create-new-task';
 import { useTasks } from '@features/get-all-tasks';
 import { useState } from 'react';
 import { EditTaskModal } from '@features/edit-task';
 
-export const TasksList = () => {
-  const { tasks, loading, error } = useTasks();
+type TasksListProps = {
+  tasks: TaskType[];
+};
+
+export const TasksList = ({ tasks }: TasksListProps) => {
+  const { loading, error } = useTasks();
 
   const [taskFormOpen, setTaskFormOpen] = useState(false);
   const [currentTask, setCurrentTask] = useState<TaskType>(null);
@@ -17,11 +20,12 @@ export const TasksList = () => {
   };
   const handleClose = () => setTaskFormOpen(false);
 
-  if (loading) return <div>Загрузка...</div>; // TODO: добавить скелетоны
-  if (error) return <div>{error}</div>;
+  if (loading) return <>Загрузка...</>; // TODO: добавить скелетоны
+  if (error) return <>{error}</>;
+  if (!tasks.length) return <>Кажется, тут пусто</>;
 
   return (
-    <div className={styles.container}>
+    <div>
       <ul className={styles.ul}>
         {tasks.map((task) => (
           <li key={task.id} onClick={() => handleСardClick(task)}>
@@ -29,9 +33,6 @@ export const TasksList = () => {
           </li>
         ))}
       </ul>
-      <div className={styles.button}>
-        <CreateNewTaskButton />
-      </div>
       <EditTaskModal
         taskFormOpen={taskFormOpen}
         currentTask={currentTask}

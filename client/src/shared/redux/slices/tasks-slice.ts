@@ -8,18 +8,24 @@ type TaskState = {
   tasks: TaskType[];
   loading: boolean;
   error: string | null;
+  searchQuery: string;
 };
 
 const initialState: TaskState = {
   tasks: [],
   loading: false,
   error: null,
+  searchQuery: '',
 };
 
 export const tasksSlice = createSlice({
   name: 'tasks',
   initialState,
-  reducers: {},
+  reducers: {
+    setSearchQuery: (state, action: PayloadAction<string>) => {
+      state.searchQuery = action.payload.toLowerCase().trim();
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getTasks.pending, (state) => {
@@ -67,3 +73,16 @@ export const tasksSlice = createSlice({
 
 export const selectTaskById = (state: { tasks: TaskState }, taskId: number) =>
   state.tasks.tasks.find((task) => task.id === taskId);
+
+export const selectSearchedTasks = (state: { tasks: TaskState }) => {
+  const { tasks, searchQuery } = state.tasks;
+  if (!searchQuery) return tasks;
+
+  return tasks.filter(
+    (task) =>
+      task.title.toLowerCase().includes(searchQuery) ||
+      task.assignee?.fullName.toLowerCase().includes(searchQuery)
+  );
+};
+
+export const { setSearchQuery } = tasksSlice.actions;
