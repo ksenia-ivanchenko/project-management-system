@@ -83,7 +83,7 @@ export const tasksSlice = createSlice({
           (task) => task.id === action.payload.id
         );
         if (indexForCurrentBoard !== -1) {
-          state.currentBoardTasks[index] = action.payload;
+          state.currentBoardTasks[indexForCurrentBoard] = action.payload;
         }
         state.error = null;
       })
