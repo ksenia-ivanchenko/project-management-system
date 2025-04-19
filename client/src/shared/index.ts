@@ -3,6 +3,8 @@ export { api } from './api/client';
 export { store, useDispatch, useSelector } from './redux/store';
 export {
   selectTaskById,
-  selectSearchedTasks,
   setSearchQuery,
+  setBoardFilter,
+  setStatusFilter,
+  type TaskState,
 } from './redux/slices/tasks-slice';

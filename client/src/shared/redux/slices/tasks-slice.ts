@@ -4,11 +4,13 @@ import { editTask } from '@features/edit-task';
 import { getTasks } from '@features/get-all-tasks';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-type TaskState = {
+export type TaskState = {
   tasks: TaskType[];
   loading: boolean;
   error: string | null;
   searchQuery: string;
+  selectedBoardId: number[] | null;
+  selectedStatus: string[] | null;
 };
 
 const initialState: TaskState = {
@@ -16,6 +18,8 @@ const initialState: TaskState = {
   loading: false,
   error: null,
   searchQuery: '',
+  selectedBoardId: null,
+  selectedStatus: null,
 };
 
 export const tasksSlice = createSlice({
@@ -24,6 +28,12 @@ export const tasksSlice = createSlice({
   reducers: {
     setSearchQuery: (state, action: PayloadAction<string>) => {
       state.searchQuery = action.payload.toLowerCase().trim();
+    },
+    setBoardFilter: (state, action: PayloadAction<number[] | null>) => {
+      state.selectedBoardId = action.payload;
+    },
+    setStatusFilter: (state, action: PayloadAction<string[] | null>) => {
+      state.selectedStatus = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -74,15 +84,28 @@ export const tasksSlice = createSlice({
 export const selectTaskById = (state: { tasks: TaskState }, taskId: number) =>
   state.tasks.tasks.find((task) => task.id === taskId);
 
-export const selectSearchedTasks = (state: { tasks: TaskState }) => {
-  const { tasks, searchQuery } = state.tasks;
-  if (!searchQuery) return tasks;
+// export const selectSearchedTasks = (state: { tasks: TaskState }) => {
+//   const { tasks, searchQuery, selectedBoardId, selectedStatus } = state.tasks;
 
-  return tasks.filter(
-    (task) =>
-      task.title.toLowerCase().includes(searchQuery) ||
-      task.assignee?.fullName.toLowerCase().includes(searchQuery)
-  );
-};
+//   return tasks.filter((task) => {
+//     const matchesQuery =
+//       !searchQuery ||
+//       task.title.toLowerCase().includes(searchQuery) ||
+//       task.assignee?.fullName.toLowerCase().includes(searchQuery);
 
-export const { setSearchQuery } = tasksSlice.actions;
+//     const matchesBoard =
+//       !selectedBoardId ||
+//       selectedBoardId.length === 0 ||
+//       selectedBoardId.includes(task.boardId);
+
+//     const matchesStatus =
+//       !selectedStatus ||
+//       selectedStatus.length === 0 ||
+//       selectedStatus.includes(task.status);
+
+//     return matchesQuery && matchesBoard && matchesStatus;
+//   });
+// };
+
+export const { setSearchQuery, setBoardFilter, setStatusFilter } =
+  tasksSlice.actions;

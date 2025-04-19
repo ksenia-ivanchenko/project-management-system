@@ -1,10 +1,9 @@
-import { SearchTasks } from '@features/search-tasks';
 import {
+  FilterTasks,
+  SearchTasks,
   selectSearchedTasks,
-  setSearchQuery,
-  useDispatch,
-  useSelector,
-} from '@shared';
+} from '@features/search-tasks';
+import { setSearchQuery, useDispatch, useSelector } from '@shared';
 import { TasksList } from '@widgets/tasks-list';
 import styles from './issues-page.module.scss';
 import { CreateNewTaskButton } from '@features/create-new-task';
@@ -16,8 +15,9 @@ export const IssuesPage = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.search}>
+      <div className={styles.searchBar}>
         <SearchTasks onSearch={handleSearch} />
+        <FilterTasks />
       </div>
       <TasksList tasks={searchTasks} />
       <div className={styles.button}>

@@ -9,6 +9,13 @@
   align-self: end;
 }
 
-.search {
-  max-width: 400px;
+.searchBar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  @include tablet {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }

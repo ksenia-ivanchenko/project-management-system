@@ -1,6 +1,7 @@
 import { Input } from 'antd';
 import { debounce } from 'lodash';
 import { ChangeEvent, useMemo } from 'react';
+import styles from './search-tasks.module.scss';
 
 type SearchTasksProps = {
   onSearch: (value: string) => void;
@@ -20,5 +21,11 @@ export const SearchTasks = ({ onSearch }: SearchTasksProps) => {
     debouncedSearch(e);
   };
 
-  return <Input placeholder="Поиск" onChange={handleChange} />;
+  return (
+    <Input
+      placeholder="Поиск"
+      onChange={handleChange}
+      className={styles.input}
+    />
+  );
 };
