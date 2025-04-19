@@ -1,37 +1,30 @@
-import { fetchBoardById } from '@entities/board';
-import { TaskType } from '@entities/task';
-import { selectBoardNameById, useSelector } from '@shared';
+import { selectBoardNameById, useDispatch, useSelector } from '@shared';
 import { ProjectBoard } from '@widgets/project-board';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './board-page.module.scss';
+import { CreateNewTask } from '@features/create-new-task';
+import { getTasksForBoard } from '../redux/thunks';
 
 export const BoardPage = () => {
   const { id } = useParams();
-  const [boardTasks, setBoardTasks] = useState<TaskType[]>([]);
   const boardName = useSelector((state) =>
     selectBoardNameById(state, Number(id))
   );
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.boards);
 
   useEffect(() => {
-    setLoading(true);
-
-    fetchBoardById(Number(id)).then((data) => {
-      const tasks = data.map((task) => {
-        return { ...task, boardName: boardName, boardId: Number(id) };
-      });
-      setBoardTasks(tasks);
-      setLoading(false);
-    });
+    dispatch(getTasksForBoard({ boardId: Number(id), boardName }));
   }, []);
 
-  if (loading) return <>Загрузка...</>;
+  if (loading) return <>Загрузка...</>; // TODO: добавить скелетоны
 
   return (
     <div className={styles.page}>
       <h1>{boardName}</h1>
-      <ProjectBoard boardTasks={boardTasks} />
+      <ProjectBoard />
+      <CreateNewTask />
     </div>
   );
 };

@@ -6,11 +6,9 @@ type BoardSegmentProps = {
   children: ReactNode;
 };
 
-export const BoardSegment = ({ name, children }: BoardSegmentProps) => {
-  return (
-    <div className={styles.segment}>
-      <h2 className={styles.name}>{name}</h2>
-      {children}
-    </div>
-  );
-};
+export const BoardSegment = ({ name, children }: BoardSegmentProps) => (
+  <div className={styles.segment}>
+    <h2 className={styles.name}>{name}</h2>
+    {children}
+  </div>
+);

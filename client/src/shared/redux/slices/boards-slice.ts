@@ -2,7 +2,7 @@ import { BoardType } from '@entities/board';
 import { getBoards } from '@features/get-all-boards';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-type BoardState = {
+export type BoardState = {
   boards: BoardType[];
   loading: boolean;
   error: string | null;

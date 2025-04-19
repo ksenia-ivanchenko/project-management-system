@@ -2,6 +2,7 @@ import { TaskType } from '@entities/task';
 import { createNewTask } from '@features/create-new-task';
 import { editTask } from '@features/edit-task';
 import { getTasks } from '@features/get-all-tasks';
+import { getTasksForBoard } from '@pages';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type TaskState = {
@@ -11,6 +12,7 @@ export type TaskState = {
   searchQuery: string;
   selectedBoardId: number[] | null;
   selectedStatus: string[] | null;
+  currentBoardTasks: TaskType[];
 };
 
 const initialState: TaskState = {
@@ -20,6 +22,7 @@ const initialState: TaskState = {
   searchQuery: '',
   selectedBoardId: null,
   selectedStatus: null,
+  currentBoardTasks: [],
 };
 
 export const tasksSlice = createSlice({
@@ -60,6 +63,9 @@ export const tasksSlice = createSlice({
         (state, action: PayloadAction<TaskType>) => {
           state.tasks.push(action.payload);
           state.error = null;
+          if (action.payload.boardId === state.currentBoardTasks[0].boardId) {
+            state.currentBoardTasks.push(action.payload);
+          }
         }
       )
       .addCase(createNewTask.rejected, (state, action) => {
@@ -73,10 +79,30 @@ export const tasksSlice = createSlice({
         if (index !== -1) {
           state.tasks[index] = action.payload;
         }
+        const indexForCurrentBoard = state.currentBoardTasks.findIndex(
+          (task) => task.id === action.payload.id
+        );
+        if (indexForCurrentBoard !== -1) {
+          state.currentBoardTasks[index] = action.payload;
+        }
         state.error = null;
       })
       .addCase(editTask.rejected, (state, action) => {
         state.error = action.payload || 'Не удалось обновить задачу';
+      });
+    builder
+      .addCase(getTasksForBoard.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.currentBoardTasks = [];
+      })
+      .addCase(getTasksForBoard.fulfilled, (state, action) => {
+        state.loading = false;
+        state.currentBoardTasks = action.payload;
+      })
+      .addCase(getTasksForBoard.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || 'Не удалось загрузить задачи';
       });
   },
 });

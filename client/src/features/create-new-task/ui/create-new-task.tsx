@@ -1,5 +1,5 @@
 import { Button, Modal } from 'antd';
-import styles from './create-new-task-button.module.scss';
+import styles from './create-new-task.module.scss';
 import { useState } from 'react';
 import { CreateTaskRequest, TaskForm } from '@entities/task';
 import { useBoards } from '@features/get-all-boards';

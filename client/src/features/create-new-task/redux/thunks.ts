@@ -10,7 +10,7 @@ export const createNewTask = createAsyncThunk<
   try {
     const { data } = await createTask(taskData);
     const task = await fetchTaskById(data.id);
-    return task;
+    return { ...task, boardId: taskData.boardId };
   } catch (error) {
     return rejectWithValue(error.message || 'Не удалось создать задачу');
   }
