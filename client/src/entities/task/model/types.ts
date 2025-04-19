@@ -1,3 +1,5 @@
+import { AssigneeUserForTask } from '@entities/user';
+
 export enum Priority {
   LOW = 'Low',
   MEDIUM = 'Medium',
@@ -9,13 +11,6 @@ export enum Status {
   IN_PROGRESS = 'InProgress',
   DONE = 'Done',
 }
-
-type AssigneeUserForTask = {
-  avatarUrl: string;
-  email: string;
-  fullName: string;
-  id: number;
-};
 
 export type TaskType = {
   assignee: AssigneeUserForTask;

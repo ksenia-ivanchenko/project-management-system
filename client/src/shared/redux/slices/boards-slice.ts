@@ -38,3 +38,11 @@ export const boardsSlice = createSlice({
       });
   },
 });
+
+export const selectBoardNameById = (
+  state: { boards: BoardState },
+  boardId: number
+) => {
+  const board = state.boards.boards.find((board) => board.id === boardId);
+  return board ? board.name : 'Неизвестная доска';
+};

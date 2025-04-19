@@ -81,31 +81,5 @@ export const tasksSlice = createSlice({
   },
 });
 
-export const selectTaskById = (state: { tasks: TaskState }, taskId: number) =>
-  state.tasks.tasks.find((task) => task.id === taskId);
-
-// export const selectSearchedTasks = (state: { tasks: TaskState }) => {
-//   const { tasks, searchQuery, selectedBoardId, selectedStatus } = state.tasks;
-
-//   return tasks.filter((task) => {
-//     const matchesQuery =
-//       !searchQuery ||
-//       task.title.toLowerCase().includes(searchQuery) ||
-//       task.assignee?.fullName.toLowerCase().includes(searchQuery);
-
-//     const matchesBoard =
-//       !selectedBoardId ||
-//       selectedBoardId.length === 0 ||
-//       selectedBoardId.includes(task.boardId);
-
-//     const matchesStatus =
-//       !selectedStatus ||
-//       selectedStatus.length === 0 ||
-//       selectedStatus.includes(task.status);
-
-//     return matchesQuery && matchesBoard && matchesStatus;
-//   });
-// };
-
 export const { setSearchQuery, setBoardFilter, setStatusFilter } =
   tasksSlice.actions;

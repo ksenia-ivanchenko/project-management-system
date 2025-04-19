@@ -8,3 +8,10 @@ export type User = {
   teamId: number;
   teamName: string;
 };
+
+export type AssigneeUserForTask = {
+  avatarUrl: string;
+  email: string;
+  fullName: string;
+  id: number;
+};

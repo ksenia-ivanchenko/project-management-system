@@ -7,7 +7,7 @@ import { useDispatch } from '@shared';
 import { createNewTask } from '../redux/thunks';
 import { useUsers } from '@features/get-all-users';
 
-export const CreateNewTaskButton = () => {
+export const CreateNewTask = () => {
   const [taskFormOpen, setTaskFormOpen] = useState(false);
   const dispatch = useDispatch();
   const { boards } = useBoards();

@@ -1,0 +1,11 @@
+.segment {
+  padding: 10px;
+
+  &:nth-child(2) {
+    border-inline: 1px solid black;
+  }
+}
+
+.name {
+  border-bottom: 1px solid black;
+}

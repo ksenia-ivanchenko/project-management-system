@@ -6,7 +6,7 @@ import {
 import { setSearchQuery, useDispatch, useSelector } from '@shared';
 import { TasksList } from '@widgets/tasks-list';
 import styles from './issues-page.module.scss';
-import { CreateNewTaskButton } from '@features/create-new-task';
+import { CreateNewTask } from '@features/create-new-task';
 
 export const IssuesPage = () => {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ export const IssuesPage = () => {
       </div>
       <TasksList tasks={searchTasks} />
       <div className={styles.button}>
-        <CreateNewTaskButton />
+        <CreateNewTask />
       </div>
     </div>
   );
