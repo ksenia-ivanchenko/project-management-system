@@ -2,13 +2,17 @@ import styles from './tasks-list.module.scss';
 import { TaskCard, TaskType } from '@entities/task';
 import { useTasks } from '@features/get-all-tasks';
 import { useState } from 'react';
-import { EditTaskModal } from '@features/edit-task';
+import { EditTask } from '@features/edit-task';
 
 type TasksListProps = {
   tasks: TaskType[];
+  showGoToBoardModalButton?: boolean;
 };
 
-export const TasksList = ({ tasks }: TasksListProps) => {
+export const TasksList = ({
+  tasks,
+  showGoToBoardModalButton,
+}: TasksListProps) => {
   const { loading, error } = useTasks();
 
   const [taskFormOpen, setTaskFormOpen] = useState(false);
@@ -33,7 +37,8 @@ export const TasksList = ({ tasks }: TasksListProps) => {
           </li>
         ))}
       </ul>
-      <EditTaskModal
+      <EditTask
+        showGoToBoardModalButton={showGoToBoardModalButton}
         taskFormOpen={taskFormOpen}
         currentTask={currentTask}
         handleClose={handleClose}

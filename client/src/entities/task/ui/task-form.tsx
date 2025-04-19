@@ -28,6 +28,7 @@ type TaskFormProps = {
   defaultValues?: Partial<TaskFormSchema>;
   onSubmit: (data: TaskFormSchema) => void;
   id: string;
+  readonlyFields?: (keyof TaskFormSchema)[];
 };
 
 export const TaskForm = ({
@@ -36,6 +37,7 @@ export const TaskForm = ({
   defaultValues,
   onSubmit,
   id,
+  readonlyFields,
 }: TaskFormProps) => {
   const {
     control,
@@ -46,6 +48,9 @@ export const TaskForm = ({
     defaultValues,
     resolver: zodResolver(taskFormSchema),
   });
+
+  const isReadonly = (field: keyof TaskFormSchema) =>
+    readonlyFields?.includes(field);
 
   return (
     <Form
@@ -64,7 +69,9 @@ export const TaskForm = ({
         <Controller
           name="title"
           control={control}
-          render={({ field }) => <Input {...field} />}
+          render={({ field }) => (
+            <Input {...field} disabled={isReadonly('title')} />
+          )}
         />
       </Form.Item>
 
@@ -77,7 +84,13 @@ export const TaskForm = ({
           name="description"
           control={control}
           render={({ field }) => (
-            <Input.TextArea {...field} rows={4} showCount maxLength={500} />
+            <Input.TextArea
+              {...field}
+              rows={4}
+              showCount
+              maxLength={500}
+              disabled={isReadonly('description')}
+            />
           )}
         />
       </Form.Item>
@@ -91,7 +104,11 @@ export const TaskForm = ({
           name="boardId"
           control={control}
           render={({ field }) => (
-            <Select {...field} placeholder="Выберите проект">
+            <Select
+              {...field}
+              placeholder="Выберите проект"
+              disabled={isReadonly('boardId')}
+            >
               {boards.map((board) => (
                 <Select.Option key={board.id} value={board.id}>
                   {board.name}
@@ -111,7 +128,12 @@ export const TaskForm = ({
           name="priority"
           control={control}
           render={({ field }) => (
-            <Select {...field} placeholder="Выберите приоритет" allowClear>
+            <Select
+              {...field}
+              placeholder="Выберите приоритет"
+              allowClear
+              disabled={isReadonly('priority')}
+            >
               {Object.values(Priority).map((level) => (
                 <Select.Option key={level} value={level}>
                   {level}
@@ -131,7 +153,11 @@ export const TaskForm = ({
           name="status"
           control={control}
           render={({ field }) => (
-            <Select {...field} placeholder="Выберите статус">
+            <Select
+              {...field}
+              placeholder="Выберите статус"
+              disabled={isReadonly('status')}
+            >
               {Object.values(Status).map((status) => (
                 <Select.Option key={status} value={status}>
                   {status}

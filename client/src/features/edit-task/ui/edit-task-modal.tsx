@@ -7,17 +7,19 @@ import { editTask } from '../redux/thunks';
 import { Link } from 'react-router-dom';
 import styles from './edit-task-modal.module.scss';
 
-type EditTaskModalProps = {
+type EditTaskProps = {
   taskFormOpen: boolean;
   handleClose: () => void;
   currentTask: TaskType;
+  showGoToBoardModalButton?: boolean;
 };
 
-export const EditTaskModal = ({
+export const EditTask = ({
   taskFormOpen,
   handleClose,
   currentTask,
-}: EditTaskModalProps) => {
+  showGoToBoardModalButton,
+}: EditTaskProps) => {
   const { boards } = useBoards();
   const { users } = useUsers();
   const dispatch = useDispatch();
@@ -38,9 +40,11 @@ export const EditTaskModal = ({
       onCancel={handleClose}
       footer={
         <div className={styles.footer}>
-          <Link to={`/board/${currentTask?.boardId}`} key="to-board">
-            На доску
-          </Link>
+          {showGoToBoardModalButton && (
+            <Link to={`/board/${currentTask?.boardId}`} key="to-board">
+              На доску
+            </Link>
+          )}
           <Button
             key="submit"
             type="primary"
@@ -63,6 +67,10 @@ export const EditTaskModal = ({
         users={users}
         key={currentTask?.id}
         id={`update-form-${currentTask?.id}`}
+        // по тз селект с проектом должен быть не редактируемым, если форма вызвана со страницы доски
+        // однако в соответствии с апи, доску задачи вообще нельзя менять
+        // поэтому подсвечиваю пользователю, что редактировать это поле нельзя в любом случае
+        readonlyFields={['boardId']}
       />
     </Modal>
   );

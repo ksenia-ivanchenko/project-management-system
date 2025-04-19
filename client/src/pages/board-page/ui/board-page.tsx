@@ -7,15 +7,14 @@ import { CreateNewTask } from '@features/create-new-task';
 import { getTasksForBoard } from '../redux/thunks';
 
 export const BoardPage = () => {
-  const { id } = useParams();
-  const boardName = useSelector((state) =>
-    selectBoardNameById(state, Number(id))
-  );
+  const { id: strId } = useParams();
+  const id = Number(strId);
+  const boardName = useSelector((state) => selectBoardNameById(state, id));
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.boards);
 
   useEffect(() => {
-    dispatch(getTasksForBoard({ boardId: Number(id), boardName }));
+    dispatch(getTasksForBoard({ boardId: id, boardName }));
   }, []);
 
   if (loading) return <>Загрузка...</>; // TODO: добавить скелетоны
@@ -24,7 +23,9 @@ export const BoardPage = () => {
     <div className={styles.page}>
       <h1>{boardName}</h1>
       <ProjectBoard />
-      <CreateNewTask />
+      <div className={styles.button}>
+        <CreateNewTask defaultValues={{ boardId: id }} />
+      </div>
     </div>
   );
 };

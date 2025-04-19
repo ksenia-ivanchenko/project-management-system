@@ -19,7 +19,7 @@ export const IssuesPage = () => {
         <SearchTasks onSearch={handleSearch} />
         <FilterTasks />
       </div>
-      <TasksList tasks={searchTasks} />
+      <TasksList tasks={searchTasks} showGoToBoardModalButton={true} />
       <div className={styles.button}>
         <CreateNewTask />
       </div>

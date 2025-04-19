@@ -1,13 +1,22 @@
 import { Button, Modal } from 'antd';
 import styles from './create-new-task.module.scss';
 import { useState } from 'react';
-import { CreateTaskRequest, TaskForm } from '@entities/task';
+import {
+  CreateTaskRequest,
+  Status,
+  TaskForm,
+  TaskFormSchema,
+} from '@entities/task';
 import { useBoards } from '@features/get-all-boards';
 import { useDispatch } from '@shared';
 import { createNewTask } from '../redux/thunks';
 import { useUsers } from '@features/get-all-users';
 
-export const CreateNewTask = () => {
+type CreateNewTaskProps = {
+  defaultValues?: Partial<TaskFormSchema>;
+};
+
+export const CreateNewTask = ({ defaultValues }: CreateNewTaskProps) => {
   const [taskFormOpen, setTaskFormOpen] = useState(false);
   const dispatch = useDispatch();
   const { boards } = useBoards();
@@ -42,10 +51,13 @@ export const CreateNewTask = () => {
         title="Создание задачи"
       >
         <TaskForm
+          defaultValues={{ ...defaultValues, status: Status.BACKLOG }}
           onSubmit={handleSubmit}
           boards={boards}
           users={users}
           id="create-form"
+          // в соответствии с апи, нельзя создать задачу в статусе, отличном от бэклога
+          readonlyFields={['status']}
         />
       </Modal>
     </>
