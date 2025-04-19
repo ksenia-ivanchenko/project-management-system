@@ -5,6 +5,7 @@ export {
   setSearchQuery,
   setBoardFilter,
   setStatusFilter,
+  selectTaskById,
   type TaskState,
 } from './redux/slices/tasks-slice';
 export { selectBoardNameById } from './redux/slices/boards-slice';

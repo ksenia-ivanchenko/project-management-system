@@ -107,5 +107,10 @@ export const tasksSlice = createSlice({
   },
 });
 
+export const selectTaskById =
+  (taskId: number) =>
+  (state: { tasks: TaskState }): TaskType | undefined =>
+    state.tasks.tasks.find((task) => task.id === taskId);
+
 export const { setSearchQuery, setBoardFilter, setStatusFilter } =
   tasksSlice.actions;

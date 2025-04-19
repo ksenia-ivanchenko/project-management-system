@@ -41,7 +41,10 @@ export const EditTask = ({
       footer={
         <div className={styles.footer}>
           {showGoToBoardModalButton && (
-            <Link to={`/board/${currentTask?.boardId}`} key="to-board">
+            <Link
+              to={`/board/${currentTask?.boardId}?editTask=${currentTask?.id}`}
+              key="to-board"
+            >
               На доску
             </Link>
           )}
