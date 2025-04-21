@@ -8,7 +8,10 @@ const __dirname = dirname(__filename);
 
 export default defineConfig({
   plugins: [react()],
-  server: { open: true },
+  server: {
+    open: false,
+    host: true,
+  },
   resolve: {
     alias: {
       '@entities': path.resolve(__dirname, 'src/entities'),
