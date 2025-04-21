@@ -2,6 +2,10 @@
   "scripts": {
     "docker:up": "docker compose up --build -d",
     "docker:down": "docker compose down",
-    "start": "npm run docker:up && wait-on http://localhost:5173 && open http://localhost:5173"
+    "start": "npm run docker:up && npx wait-on http://localhost:5173 && npx open-cli http://localhost:5173"
+  },
+  "devDependencies": {
+    "open-cli": "^8.0.0",
+    "wait-on": "^8.0.3"
   }
 }
