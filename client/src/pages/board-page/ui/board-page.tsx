@@ -41,7 +41,7 @@ export const BoardPage = () => {
       <h1>{boardName}</h1>
       <ProjectBoard />
       <div className={styles.button}>
-        <CreateNewTask defaultValues={{ boardId: id }} />
+        <CreateNewTask />
       </div>
       {task && (
         <EditTask
