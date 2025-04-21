@@ -3,6 +3,7 @@ import { TaskCard, TaskType } from '@entities/task';
 import { useTasks } from '@features/get-all-tasks';
 import { useState } from 'react';
 import { EditTask } from '@features/edit-task';
+import { Loader } from '@shared';
 
 type TasksListProps = {
   tasks: TaskType[];
@@ -24,7 +25,10 @@ export const TasksList = ({
   };
   const handleClose = () => setTaskFormOpen(false);
 
-  if (loading) return <>Загрузка...</>; // TODO: добавить скелетоны
+  if (loading) {
+    return <Loader />;
+  }
+
   if (error) return <>{error}</>;
   if (!tasks.length) return <>Кажется, тут пусто</>;
 

@@ -2,6 +2,7 @@ import { BoardCard } from '@entities/board';
 import styles from './boards-list.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { useBoards } from '@features/get-all-boards';
+import { Loader } from '@shared';
 
 export const BoardsList = () => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ export const BoardsList = () => {
     navigate(`/board/${id}`);
   };
 
-  if (loading) return <div>Загрузка...</div>; // TODO: добавить скелетоны
+  if (loading) return <Loader />;
   if (error) return <div>{error}</div>;
 
   return (
@@ -20,7 +21,6 @@ export const BoardsList = () => {
         <li key={board.id}>
           <BoardCard
             board={board}
-            // тоже следует уточнить требования, как будто будет лучше совершать переход по клику на всю карточку, а не кнопку
             onButtonClick={() => handleGoToBoard(board.id)}
           />
         </li>

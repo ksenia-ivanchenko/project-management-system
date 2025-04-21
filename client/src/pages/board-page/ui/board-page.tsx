@@ -1,4 +1,5 @@
 import {
+  Loader,
   selectBoardNameById,
   selectTaskById,
   useDispatch,
@@ -31,7 +32,9 @@ export const BoardPage = () => {
     dispatch(getTasksForBoard({ boardId: id, boardName }));
   }, []);
 
-  if (loading) return <>Загрузка...</>; // TODO: добавить скелетоны
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className={styles.page}>

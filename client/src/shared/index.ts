@@ -9,3 +9,4 @@ export {
   type TaskState,
 } from './redux/slices/tasks-slice';
 export { selectBoardNameById } from './redux/slices/boards-slice';
+export { Loader } from './ui/loader/loader';
