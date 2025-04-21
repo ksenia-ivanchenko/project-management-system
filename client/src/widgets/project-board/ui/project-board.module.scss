@@ -3,3 +3,12 @@
   grid-template-columns: 1fr 1fr 1fr;
   border: 1px solid black;
 }
+
+.column {
+  transition: all 0.2s ease;
+
+  &[data-dragover='true'] {
+    background-color: #e6f7ff;
+    box-shadow: 0 0 0 1px #1890ff;
+  }
+}

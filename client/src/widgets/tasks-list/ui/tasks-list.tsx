@@ -1,18 +1,20 @@
 import styles from './tasks-list.module.scss';
 import { TaskCard, TaskType } from '@entities/task';
 import { useTasks } from '@features/get-all-tasks';
-import { useState } from 'react';
+import { DragEvent, useState } from 'react';
 import { EditTask } from '@features/edit-task';
 import { Loader } from '@shared';
 
 type TasksListProps = {
   tasks: TaskType[];
   showGoToBoardModalButton?: boolean;
+  onDragStart: (task: TaskType) => void;
 };
 
 export const TasksList = ({
   tasks,
   showGoToBoardModalButton,
+  onDragStart,
 }: TasksListProps) => {
   const { loading, error } = useTasks();
 
@@ -25,6 +27,16 @@ export const TasksList = ({
   };
   const handleClose = () => setTaskFormOpen(false);
 
+  const handleDragStart = (e: DragEvent<HTMLLIElement>, task: TaskType) => {
+    e.dataTransfer.setData('text/plain', String(task.id));
+    onDragStart(task);
+    e.currentTarget.style.opacity = '0.4';
+  };
+
+  const handleDragEnd = (e: DragEvent<HTMLLIElement>) => {
+    e.currentTarget.style.opacity = '1';
+  };
+
   if (loading) {
     return <Loader />;
   }
@@ -36,7 +48,13 @@ export const TasksList = ({
     <div>
       <ul className={styles.ul}>
         {tasks.map((task) => (
-          <li key={task.id} onClick={() => handleСardClick(task)}>
+          <li
+            key={task.id}
+            onClick={() => handleСardClick(task)}
+            draggable
+            onDragStart={(e) => handleDragStart(e, task)}
+            onDragEnd={handleDragEnd}
+          >
             <TaskCard task={task} />
           </li>
         ))}

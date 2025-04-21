@@ -1,6 +1,6 @@
 import { TaskType } from '@entities/task';
 import { createNewTask } from '@features/create-new-task';
-import { editTask } from '@features/edit-task';
+import { editTask, updateTaskStatus } from '@features/edit-task';
 import { getTasks } from '@features/get-all-tasks';
 import { getTasksForBoard } from '@pages';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
@@ -103,6 +103,35 @@ export const tasksSlice = createSlice({
       .addCase(getTasksForBoard.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || 'Не удалось загрузить задачи';
+      });
+    builder
+      .addCase(updateTaskStatus.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(
+        updateTaskStatus.fulfilled,
+        (state, action: PayloadAction<TaskType>) => {
+          state.loading = false;
+          const index = state.tasks.findIndex(
+            (task) => task.id === action.payload.id
+          );
+          if (index !== -1) {
+            state.tasks[index] = action.payload;
+          }
+
+          const indexForCurrentBoard = state.currentBoardTasks.findIndex(
+            (task) => task.id === action.payload.id
+          );
+          if (indexForCurrentBoard !== -1) {
+            state.currentBoardTasks[indexForCurrentBoard] = action.payload;
+          }
+          state.error = null;
+        }
+      )
+      .addCase(updateTaskStatus.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || 'Не удалось обновить статус задачи';
       });
   },
 });
